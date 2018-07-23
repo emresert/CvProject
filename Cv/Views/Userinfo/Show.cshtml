@@ -1,0 +1,68 @@
+﻿@model Cv.Models.UserinfoModel
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@if (Model != null)
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserImage)
+        </th>
+        <th>
+            <b>Cinsiyet</b>
+        </th>
+        <th>
+            <b>Ad Soyad</b>
+        </th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Adress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.UserImage)
+        </td>
+        <td>
+            @ViewBag.Gender
+        </td>
+        <td>
+            @ViewBag.Name
+        </td>
+        <td>
+            
+            @Html.ActionLink("Edit", "Edit", "Userinfo", new { id = Model.UserInfoID }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.UserInfoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.UserInfoID })
+        </td>
+    </tr>
+
+</table>
+}
+

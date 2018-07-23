@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@using Cv.Models;
+@if (Session["Users"] != null)
+{
+    var usersName = "";
+    var foo = Session["Users"] as tbl_Member;
+    usersName = foo.UserName + " " + foo.UserSurname;
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Welcome " + usersName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li>
+                @Html.ActionLink("Logout", "Logout", "Member")
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Create", "Create", "Member", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Member", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

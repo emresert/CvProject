@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CvModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Education">
+          <Key>
+            <PropertyRef Name="EducationID" />
+          </Key>
+          <Property Name="EducationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="FinishDate" Type="smalldatetime" />
+          <Property Name="fk_UserID" Type="int" />
+          <Property Name="fk_StatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Experiences">
+          <Key>
+            <PropertyRef Name="ExpID" />
+          </Key>
+          <Property Name="ExpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="1" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="FinishDate" Type="smalldatetime" />
+          <Property Name="fk_UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbl_Member">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserSurname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Userinfo">
+          <Key>
+            <PropertyRef Name="UserInfoID" />
+          </Key>
+          <Property Name="UserInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOfBirth" Type="smalldatetime" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserImage" Type="image" />
+          <Property Name="fk_GenderID" Type="int" />
+          <Property Name="fk_UserID" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbl_Education_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Education">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Education_tbl_Status">
+          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+          <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_Education">
+              <PropertyRef Name="fk_StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Experiences_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Experiences" Type="Self.tbl_Experiences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Experiences">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Userinfo_tbl_Gender">
+          <End Role="tbl_Gender" Type="Self.tbl_Gender" Multiplicity="0..1" />
+          <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="tbl_Userinfo">
+              <PropertyRef Name="fk_GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Userinfo_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Userinfo">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CvModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Education" EntityType="Self.tbl_Education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Experiences" EntityType="Self.tbl_Experiences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Gender" EntityType="Self.tbl_Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Member" EntityType="Self.tbl_Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Userinfo" EntityType="Self.tbl_Userinfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Education_tbl_Member" Association="Self.FK_tbl_Education_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Education" EntitySet="tbl_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Education_tbl_Status" Association="Self.FK_tbl_Education_tbl_Status">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="tbl_Education" EntitySet="tbl_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Experiences_tbl_Member" Association="Self.FK_tbl_Experiences_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Experiences" EntitySet="tbl_Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Userinfo_tbl_Gender" Association="Self.FK_tbl_Userinfo_tbl_Gender">
+            <End Role="tbl_Gender" EntitySet="tbl_Gender" />
+            <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Userinfo_tbl_Member" Association="Self.FK_tbl_Userinfo_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_Education">
+          <Key>
+            <PropertyRef Name="EducationID" />
+          </Key>
+          <Property Name="EducationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="FinishDate" Type="DateTime" Precision="0" />
+          <Property Name="fk_UserID" Type="Int32" />
+          <Property Name="fk_StatusID" Type="Int32" />
+          <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Education_tbl_Member" FromRole="tbl_Education" ToRole="tbl_Member" />
+          <NavigationProperty Name="tbl_Status" Relationship="Self.FK_tbl_Education_tbl_Status" FromRole="tbl_Education" ToRole="tbl_Status" />
+        </EntityType>
+        <EntityType Name="tbl_Experiences">
+          <Key>
+            <PropertyRef Name="ExpID" />
+          </Key>
+          <Property Name="ExpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="FinishDate" Type="DateTime" Precision="0" />
+          <Property Name="fk_UserID" Type="Int32" />
+          <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Experiences_tbl_Member" FromRole="tbl_Experiences" ToRole="tbl_Member" />
+        </EntityType>
+        <EntityType Name="tbl_Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_Userinfo" Relationship="Self.FK_tbl_Userinfo_tbl_Gender" FromRole="tbl_Gender" ToRole="tbl_Userinfo" />
+        </EntityType>
+        <EntityType Name="tbl_Member">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_Education" Relationship="Self.FK_tbl_Education_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Education" />
+          <NavigationProperty Name="tbl_Experiences" Relationship="Self.FK_tbl_Experiences_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Experiences" />
+          <NavigationProperty Name="tbl_Userinfo" Relationship="Self.FK_tbl_Userinfo_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Userinfo" />
+        </EntityType>
+        <EntityType Name="tbl_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_Education" Relationship="Self.FK_tbl_Education_tbl_Status" FromRole="tbl_Status" ToRole="tbl_Education" />
+        </EntityType>
+        <EntityType Name="tbl_Userinfo">
+          <Key>
+            <PropertyRef Name="UserInfoID" />
+          </Key>
+          <Property Name="UserInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="fk_GenderID" Type="Int32" />
+          <Property Name="fk_UserID" Type="Int32" />
+          <NavigationProperty Name="tbl_Gender" Relationship="Self.FK_tbl_Userinfo_tbl_Gender" FromRole="tbl_Userinfo" ToRole="tbl_Gender" />
+          <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Userinfo_tbl_Member" FromRole="tbl_Userinfo" ToRole="tbl_Member" />
+        </EntityType>
+        <Association Name="FK_tbl_Education_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Education">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Education_tbl_Status">
+          <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+          <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tbl_Education">
+              <PropertyRef Name="fk_StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Experiences_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Experiences" Type="Self.tbl_Experiences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Experiences">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Userinfo_tbl_Gender">
+          <End Role="tbl_Gender" Type="Self.tbl_Gender" Multiplicity="0..1" />
+          <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="tbl_Userinfo">
+              <PropertyRef Name="fk_GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Userinfo_tbl_Member">
+          <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+          <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Member">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Userinfo">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CvEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tbl_Education" EntityType="Self.tbl_Education" />
+          <EntitySet Name="tbl_Experiences" EntityType="Self.tbl_Experiences" />
+          <EntitySet Name="tbl_Gender" EntityType="Self.tbl_Gender" />
+          <EntitySet Name="tbl_Member" EntityType="Self.tbl_Member" />
+          <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" />
+          <EntitySet Name="tbl_Userinfo" EntityType="Self.tbl_Userinfo" />
+          <AssociationSet Name="FK_tbl_Education_tbl_Member" Association="Self.FK_tbl_Education_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Education" EntitySet="tbl_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Education_tbl_Status" Association="Self.FK_tbl_Education_tbl_Status">
+            <End Role="tbl_Status" EntitySet="tbl_Status" />
+            <End Role="tbl_Education" EntitySet="tbl_Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Experiences_tbl_Member" Association="Self.FK_tbl_Experiences_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Experiences" EntitySet="tbl_Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Userinfo_tbl_Gender" Association="Self.FK_tbl_Userinfo_tbl_Gender">
+            <End Role="tbl_Gender" EntitySet="tbl_Gender" />
+            <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Userinfo_tbl_Member" Association="Self.FK_tbl_Userinfo_tbl_Member">
+            <End Role="tbl_Member" EntitySet="tbl_Member" />
+            <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CvModelStoreContainer" CdmEntityContainer="CvEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CvModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Education">
+            <EntityTypeMapping TypeName="CvModel.tbl_Education">
+              <MappingFragment StoreEntitySet="tbl_Education">
+                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+                <ScalarProperty Name="fk_StatusID" ColumnName="fk_StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Experiences">
+            <EntityTypeMapping TypeName="CvModel.tbl_Experiences">
+              <MappingFragment StoreEntitySet="tbl_Experiences">
+                <ScalarProperty Name="ExpID" ColumnName="ExpID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Gender">
+            <EntityTypeMapping TypeName="CvModel.tbl_Gender">
+              <MappingFragment StoreEntitySet="tbl_Gender">
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Member">
+            <EntityTypeMapping TypeName="CvModel.tbl_Member">
+              <MappingFragment StoreEntitySet="tbl_Member">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserSurname" ColumnName="UserSurname" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Status">
+            <EntityTypeMapping TypeName="CvModel.tbl_Status">
+              <MappingFragment StoreEntitySet="tbl_Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Userinfo">
+            <EntityTypeMapping TypeName="CvModel.tbl_Userinfo">
+              <MappingFragment StoreEntitySet="tbl_Userinfo">
+                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
+                <ScalarProperty Name="fk_GenderID" ColumnName="fk_GenderID" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

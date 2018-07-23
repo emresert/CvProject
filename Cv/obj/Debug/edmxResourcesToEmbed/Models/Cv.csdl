@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tbl_Education">
+    <Key>
+      <PropertyRef Name="EducationID" />
+    </Key>
+    <Property Name="EducationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="fk_UserID" Type="Int32" />
+    <Property Name="fk_StatusID" Type="Int32" />
+    <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Education_tbl_Member" FromRole="tbl_Education" ToRole="tbl_Member" />
+    <NavigationProperty Name="tbl_Status" Relationship="Self.FK_tbl_Education_tbl_Status" FromRole="tbl_Education" ToRole="tbl_Status" />
+  </EntityType>
+  <EntityType Name="tbl_Experiences">
+    <Key>
+      <PropertyRef Name="ExpID" />
+    </Key>
+    <Property Name="ExpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="FinishDate" Type="DateTime" Precision="0" />
+    <Property Name="fk_UserID" Type="Int32" />
+    <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Experiences_tbl_Member" FromRole="tbl_Experiences" ToRole="tbl_Member" />
+  </EntityType>
+  <EntityType Name="tbl_Gender">
+    <Key>
+      <PropertyRef Name="GenderID" />
+    </Key>
+    <Property Name="GenderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Userinfo" Relationship="Self.FK_tbl_Userinfo_tbl_Gender" FromRole="tbl_Gender" ToRole="tbl_Userinfo" />
+  </EntityType>
+  <EntityType Name="tbl_Member">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Education" Relationship="Self.FK_tbl_Education_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Education" />
+    <NavigationProperty Name="tbl_Experiences" Relationship="Self.FK_tbl_Experiences_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Experiences" />
+    <NavigationProperty Name="tbl_Userinfo" Relationship="Self.FK_tbl_Userinfo_tbl_Member" FromRole="tbl_Member" ToRole="tbl_Userinfo" />
+  </EntityType>
+  <EntityType Name="tbl_Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Education" Relationship="Self.FK_tbl_Education_tbl_Status" FromRole="tbl_Status" ToRole="tbl_Education" />
+  </EntityType>
+  <EntityType Name="tbl_Userinfo">
+    <Key>
+      <PropertyRef Name="UserInfoID" />
+    </Key>
+    <Property Name="UserInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="fk_GenderID" Type="Int32" />
+    <Property Name="fk_UserID" Type="Int32" />
+    <NavigationProperty Name="tbl_Gender" Relationship="Self.FK_tbl_Userinfo_tbl_Gender" FromRole="tbl_Userinfo" ToRole="tbl_Gender" />
+    <NavigationProperty Name="tbl_Member" Relationship="Self.FK_tbl_Userinfo_tbl_Member" FromRole="tbl_Userinfo" ToRole="tbl_Member" />
+  </EntityType>
+  <Association Name="FK_tbl_Education_tbl_Member">
+    <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+    <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Education">
+        <PropertyRef Name="fk_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Education_tbl_Status">
+    <End Role="tbl_Status" Type="Self.tbl_Status" Multiplicity="0..1" />
+    <End Role="tbl_Education" Type="Self.tbl_Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Status">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="tbl_Education">
+        <PropertyRef Name="fk_StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Experiences_tbl_Member">
+    <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+    <End Role="tbl_Experiences" Type="Self.tbl_Experiences" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Experiences">
+        <PropertyRef Name="fk_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Userinfo_tbl_Gender">
+    <End Role="tbl_Gender" Type="Self.tbl_Gender" Multiplicity="0..1" />
+    <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Gender">
+        <PropertyRef Name="GenderID" />
+      </Principal>
+      <Dependent Role="tbl_Userinfo">
+        <PropertyRef Name="fk_GenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Userinfo_tbl_Member">
+    <End Role="tbl_Member" Type="Self.tbl_Member" Multiplicity="0..1" />
+    <End Role="tbl_Userinfo" Type="Self.tbl_Userinfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Member">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Userinfo">
+        <PropertyRef Name="fk_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CvEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tbl_Education" EntityType="Self.tbl_Education" />
+    <EntitySet Name="tbl_Experiences" EntityType="Self.tbl_Experiences" />
+    <EntitySet Name="tbl_Gender" EntityType="Self.tbl_Gender" />
+    <EntitySet Name="tbl_Member" EntityType="Self.tbl_Member" />
+    <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" />
+    <EntitySet Name="tbl_Userinfo" EntityType="Self.tbl_Userinfo" />
+    <AssociationSet Name="FK_tbl_Education_tbl_Member" Association="Self.FK_tbl_Education_tbl_Member">
+      <End Role="tbl_Member" EntitySet="tbl_Member" />
+      <End Role="tbl_Education" EntitySet="tbl_Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Education_tbl_Status" Association="Self.FK_tbl_Education_tbl_Status">
+      <End Role="tbl_Status" EntitySet="tbl_Status" />
+      <End Role="tbl_Education" EntitySet="tbl_Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Experiences_tbl_Member" Association="Self.FK_tbl_Experiences_tbl_Member">
+      <End Role="tbl_Member" EntitySet="tbl_Member" />
+      <End Role="tbl_Experiences" EntitySet="tbl_Experiences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Userinfo_tbl_Gender" Association="Self.FK_tbl_Userinfo_tbl_Gender">
+      <End Role="tbl_Gender" EntitySet="tbl_Gender" />
+      <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Userinfo_tbl_Member" Association="Self.FK_tbl_Userinfo_tbl_Member">
+      <End Role="tbl_Member" EntitySet="tbl_Member" />
+      <End Role="tbl_Userinfo" EntitySet="tbl_Userinfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
