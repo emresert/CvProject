@@ -334,6 +334,8 @@
     <Content Include="Views\Userinfo\Create.cshtml" />
     <Content Include="Views\Userinfo\Show.cshtml" />
     <Content Include="Views\Userinfo\Edit.cshtml" />
+    <Content Include="Views\Userinfo\Delete.cshtml" />
+    <Content Include="Views\Userinfo\UserToDoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

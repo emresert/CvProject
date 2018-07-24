@@ -12,7 +12,13 @@ namespace Cv.Controllers
     public class UserinfoController : Controller
     {
         private CvEntities db = new CvEntities();
+        public ActionResult UserToDoList()
+        {
 
+
+            return View();
+        }
+       
         
         public ActionResult Show()
         {// find 1 den fazla yani liste şeklinde firsordefault ise sadece  1 kayıt döndürür
@@ -73,11 +79,11 @@ namespace Cv.Controllers
                     db.tbl_Userinfo.Add(userinfo);
                     db.SaveChanges();
                     ViewBag.den = "Kayıt et";
-                    return RedirectToAction("Show",userinfo);
+                    return RedirectToAction("Show");
                 } else {
 
-                    ViewBag.den = "dsadsad";
-                    return RedirectToAction("Contact","Home");
+                    ViewBag.den = "Zaten bir kaydınız var.";
+                    return RedirectToAction("UserToDoList");
                 }
                     
                 }
@@ -115,7 +121,24 @@ namespace Cv.Controllers
             db.SaveChanges();
             return RedirectToAction("Show");
         }
+        public ActionResult Delete()
+        {
+            var dataSet = Session["Users"] as tbl_Member;
+            var member = db.tbl_Userinfo.FirstOrDefault(m => m.fk_UserID == dataSet.UserID);
+            var change = new UserinfoModel();
+            change.UserInfoID = member.UserInfoID;
+            change.Adress = member.Adress;
+            change.DateOfBirth = member.DateOfBirth;
+            change.PhoneNumber = member.PhoneNumber;
+            change.UserImage = member.UserImage;
+            change.fk_UserID = member.fk_UserID;
+            db.tbl_Userinfo.Remove(member);
+            db.SaveChanges();
+            return View("UserToDoList");
+        }
+
 
 
     }
+
 }
