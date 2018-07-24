@@ -83,7 +83,7 @@ namespace Cv.Controllers
                 } else {
 
                     ViewBag.den = "Zaten bir kaydınız var.";
-                    return RedirectToAction("UserToDoList");
+                    return RedirectToAction("UserToDoList","Home");
                 }
                     
                 }
@@ -93,7 +93,7 @@ namespace Cv.Controllers
 
         public ActionResult Edit()
         {
-            var dataSet = Session["Users"] as tbl_Member;
+             var dataSet = Session["Users"] as tbl_Member;
              var member = db.tbl_Userinfo.FirstOrDefault(m => m.fk_UserID == dataSet.UserID);
              var change = new UserinfoModel();
              change.UserInfoID = member.UserInfoID;
@@ -134,7 +134,7 @@ namespace Cv.Controllers
             change.fk_UserID = member.fk_UserID;
             db.tbl_Userinfo.Remove(member);
             db.SaveChanges();
-            return View("UserToDoList");
+            return View("UserToDoList","Home");
         }
 
 
