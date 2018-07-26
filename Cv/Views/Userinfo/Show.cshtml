@@ -7,9 +7,7 @@
 
 <h2>@ViewBag.Message</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 
 @if (Model != null)
 {
@@ -59,10 +57,16 @@
             
             @Html.ActionLink("Edit", "Edit", "Userinfo", new { id = Model.UserInfoID }) |
             @Html.ActionLink("Details", "Details", new { id = Model.UserInfoID }) |
-            @Html.ActionLink("Delete", "Delete","Userinfo", new { id = Model.UserInfoID })
+            @Html.ActionLink("Delete", "Delete", "Userinfo", new { id = Model.UserInfoID })
         </td>
     </tr>
 
 </table>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
 

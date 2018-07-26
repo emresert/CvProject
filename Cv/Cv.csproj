@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -221,6 +222,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cv.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EducationModel.cs" />
     <Compile Include="Models\GenderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -338,6 +340,8 @@
     <Content Include="Views\Userinfo\UserToDoList.cshtml" />
     <Content Include="Views\Member\Show.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Education\Create.cshtml" />
+    <Content Include="Views\Education\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

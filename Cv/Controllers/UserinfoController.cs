@@ -63,7 +63,7 @@ namespace Cv.Controllers
          
             var member = db.tbl_Userinfo.FirstOrDefault(m => m.fk_UserID == dataSet.UserID);
 
-                // Bura degisti
+                
                 if (ModelState.IsValid)
                 {
                 if (member==null) {
@@ -78,7 +78,7 @@ namespace Cv.Controllers
                     userinfo.fk_UserID = userData.UserID;
                     db.tbl_Userinfo.Add(userinfo);
                     db.SaveChanges();
-                    ViewBag.den = "Kayıt et";
+                  
                     return RedirectToAction("Show");
                 } else {
 
