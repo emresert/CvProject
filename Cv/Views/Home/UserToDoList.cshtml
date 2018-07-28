@@ -44,6 +44,21 @@
                         <li class="">@Html.ActionLink("Enter a new education information", "Create", "Education")</li>
                     }
                 }
+            <br />
+            <li><h4>Experiences</h4></li>
+            <hr />
+            @{
+                var expcontrol = db.tbl_Experiences.FirstOrDefault(c => c.fk_UserID == dataSet.UserID);
+                if (expcontrol != null)
+                {
+                    <li class="">@Html.ActionLink("Show  my work experiences info", "Show", "Experiences")</li>
+                    <li class="">@Html.ActionLink("Enter a new experience information", "Create", "Experiences")</li>
+                }
+                else
+                {
+                    <li class="">@Html.ActionLink("Enter a new work experience information", "Create", "Experiences")</li>
+                }
+            }
 
             
         </ul>

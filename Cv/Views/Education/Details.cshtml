@@ -1,0 +1,53 @@
+﻿@model Cv.Models.EducationModel
+
+<div>
+    <h4>tbl_Education</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishDate)
+        </dd>
+
+     
+
+        <dt>
+            <b>Education Level</b>
+        </dt>
+
+        <dd>
+            @ViewBag.Status
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Delete", "Education", new { id = Model.EducationID})">Delete</a>
+</p>

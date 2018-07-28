@@ -30,7 +30,7 @@
     </Key>
     <Property Name="ExpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Position" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
     <Property Name="StartDate" Type="DateTime" Precision="0" />
     <Property Name="FinishDate" Type="DateTime" Precision="0" />
     <Property Name="fk_UserID" Type="Int32" />

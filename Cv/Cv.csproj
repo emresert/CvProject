@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\ExperiencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -223,6 +224,7 @@
       <DependentUpon>Cv.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationModel.cs" />
+    <Compile Include="Models\ExperiencesModel.cs" />
     <Compile Include="Models\GenderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -337,11 +339,17 @@
     <Content Include="Views\Userinfo\Show.cshtml" />
     <Content Include="Views\Userinfo\Edit.cshtml" />
     <Content Include="Views\Userinfo\Delete.cshtml" />
-    <Content Include="Views\Userinfo\UserToDoList.cshtml" />
     <Content Include="Views\Member\Show.cshtml" />
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\Education\Create.cshtml" />
     <Content Include="Views\Education\Show.cshtml" />
+    <Content Include="Views\Education\Edit.cshtml" />
+    <Content Include="Views\Experiences\Show.cshtml" />
+    <Content Include="Views\Experiences\Create.cshtml" />
+    <Content Include="Views\Experiences\Edit.cshtml" />
+    <Content Include="Views\Experiences\Details.cshtml" />
+    <Content Include="Views\Education\Details.cshtml" />
+    <Content Include="Views\Userinfo\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,54 @@
+﻿@model Cv.Models.UserinfoModel
+
+<div>
+    <h4>tbl_Userinfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserImage)
+        </dd>
+
+        <dt>
+           <b>Cinsiyet</b>
+        </dt>
+
+        <dd>
+            @ViewBag.Gender
+        </dd>
+
+       
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Delete", "Userinfo")">Delete</a> |
+   
+</p>

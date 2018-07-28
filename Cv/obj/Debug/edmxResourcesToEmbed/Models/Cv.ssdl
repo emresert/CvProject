@@ -28,7 +28,7 @@
     </Key>
     <Property Name="ExpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Position" Type="nvarchar" MaxLength="1" />
+    <Property Name="Position" Type="nvarchar" MaxLength="25" />
     <Property Name="StartDate" Type="smalldatetime" />
     <Property Name="FinishDate" Type="smalldatetime" />
     <Property Name="fk_UserID" Type="int" />
