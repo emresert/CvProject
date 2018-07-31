@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNet.Identity
+@using Cv.Models;
+@model Cv.Models.CvViewModel
+
+
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+<div class="container">
+    <div class="UserForm">
+        <ul class="list-group">
+            
+            <li><h3 style="color:dodgerblue;">Personal Info</h3></li> 
+           @{var dataSet = Session["Users"] as tbl_Member;
+               CvEntities db = new CvEntities();
+               var member = db.tbl_Userinfo.FirstOrDefault(m => m.fk_UserID == dataSet.UserID);
+               
+               }
+            <hr />
+             <b>User Image:</b>@member.UserImage<br />
+             <b>Name Surname :</b>  @dataSet.UserName @dataSet.UserSurname<br />
+             <b>Birth Day :</b>@member.DateOfBirth <br />
+             <b>Adress :</b>@member.Adress <br />
+             <b>E mail :</b> @dataSet.UserEmail <br />
+             <b>Phone Number :</b> @member.PhoneNumber
+                
+             <li><h3 style="color:dodgerblue;">Education info:</h3></li>
+           
+           
+               @foreach (var education in Model.EducationInfo)
+               {
+                   if (education.fk_UserID==dataSet.UserID)
+                   {
+                    <hr />
+                    <b>School Name :</b>@education.SchoolName
+                    <br />
+                    <b>Department  :</b>@education.Department
+                    <br />
+                    <b>Start Date  :</b>@education.StartDate
+                    <br />
+                    <b>Finish Date  :</b>@education.FinishDate
+                    <br />
+                       switch (education.fk_StatusID)
+                       {
+                           case 1:
+                               ViewBag.Status = "Primary";
+                               break;
+                           case 2:
+                               ViewBag.Status = "High School";
+                               break;
+                           case 3:
+                               ViewBag.Status = "Asociate";
+                               break;
+                           case 4:
+                               ViewBag.Status = "Undergrade";
+                               break;
+                           case 5:
+                               ViewBag.Status = "Master";
+                               break;
+                           case 6:
+                               ViewBag.Status = "PostGrade";
+                               break;
+                           default:
+                               ViewBag.Status = "Not Select";
+                               break;
+                       }
+                    <b>Education Status:</b>@ViewBag.Status
+                   }
+               }
+           
+            <li><h3 style="color:dodgerblue;">Experiences</h3></li>
+
+            @foreach (var experience in Model.ExperiencesInfo)
+            {
+                if (experience.fk_UserID == dataSet.UserID)
+                {
+                    <hr />
+                    <b>Company Name :</b>@experience.CompanyName
+                    <br />
+                    <b>Position  :</b>@experience.Position
+                    <br />
+                    <b>Start Date  :</b>@experience.StartDate
+                    <br />
+                    <b>Finish Date  :</b>@experience.FinishDate
+                    <br />
+                }
+
+            }
+               
+
+             
+
+
+
+
+
+
+        </ul>
+    </div>
+</div>

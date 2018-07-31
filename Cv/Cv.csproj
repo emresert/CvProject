@@ -223,6 +223,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cv.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CvViewModel.cs" />
     <Compile Include="Models\EducationModel.cs" />
     <Compile Include="Models\ExperiencesModel.cs" />
     <Compile Include="Models\GenderModel.cs" />
@@ -350,6 +351,7 @@
     <Content Include="Views\Experiences\Details.cshtml" />
     <Content Include="Views\Education\Details.cshtml" />
     <Content Include="Views\Userinfo\Details.cshtml" />
+    <Content Include="Views\Home\ShowAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
